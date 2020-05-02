@@ -17,6 +17,9 @@ const {
   getTodoItemById,
   removeTodoItemById,
   cancelTodoItemEditById,
+  saveTodoItemById,
+  editTodoItemById,
+  updateTodoItemById,
 } = require("./todo")
 
 let todoList
@@ -86,40 +89,52 @@ describe("TodoList", () => {
     it("should cancel an ongoing edition", () => {
       // when
       // On doit cloner l'objet avec ... pour prendre une copie et pas la référence !
-      const todoItemAvantAnnulationÉdition = { ...getTodoItemById(todoList, 3) }
-      cancelTodoItemEditById(todoList, 3)
-      const todoItemAprèsAnnulationÉdition = getTodoItemById(todoList, 3)
+      const todoItemAvantAnnulationÉdition = { ...getTodoItemById(todoList, 1) }
+      cancelTodoItemEditById(todoList, 1)
+      const todoItemAprèsAnnulationÉdition = getTodoItemById(todoList, 1)
 
       expect(todoItemAvantAnnulationÉdition.newValue).toBeTruthy()
       expect(todoItemAprèsAnnulationÉdition.newValue).toEqual(null)
     })
   })
 
-  describe("#saveTodoItemById", () => {
+ describe("#saveTodoItemById", () => {
     it("should copy the new value into value and set new value to null", () => {
       // when
+      const todoItemAvantSave = getTodoItemById(todoList, 3)
+      saveTodoItemById(todoList, 3)
+      const todoItemApresSave = getTodoItemById(todoList, 3)
 
       //then
-
+      expect(todoItemAvantSave.value).toEqual(todoItemAvantSave.newValue)
+      expect(todoItemApresSave.newValue).toEqual(null)
     })
   })
 
   describe("#editTodoItemById", () => {
-    it("should set the new value to '' (and not null) when the new value is null", () => {
-      // when
+     it("should set the new value to '' (and not null) when the new value is null", () => {
+       //when
+       const todoItemAvantEdit = getTodoItemById(todoList, 3)
+       editTodoItemById(todoList, 3)
+       const todoItemApresEdit = getTodoItemById(todoList, 3)
 
-      //then
-
-    })
-  })
+       //then
+       expect(todoItemAvantEdit.value).toBeTruthy()
+     })
+   })
 
   describe("#updateTodoItemById", () => {
-    it("should update the new value to a given new value in parameter", () => {
-      // when
+     it("should update the new value to a given new value in parameter", () => {
+       //when
+       const todoItemAvantUpdate = getTodoItemById(todoList, 3)
+       const newItem = "Acheter du pain"
+       updateTodoItemById(todoList, 3, newItem)
+       const todoItemApresUpdate = getTodoItemById(todoList, 3)
 
-      //then
+       //then
+       expect(todoItemApresUpdate.newValue).toEqual(newItem)
 
-    })
-  })
+     })
+   })
 
 })

@@ -34,3 +34,12 @@ exports.updateTodoItemById = (todolist, todoId, newTask) => {
     let itemToUpdate = todolist.find(element => element.id === todoId)
     return itemToUpdate.newValue = newTask
 }
+
+exports.renderToDoItemAsHTMLString = (todolist, todoId) => {
+    let itemToPutAsString = todolist.find(element => element.id === todoId)
+    return `<div id="${itemToPutAsString.id}" data-status="${itemToPutAsString.status}"><p>${itemToPutAsString.value}</p></div>`
+}
+
+exports.renderContainerAsHTMLString = (todoItem) => {
+    return `<div class="liste">${todoItem}</div>`
+}

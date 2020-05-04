@@ -20,6 +20,8 @@ const {
   saveTodoItemById,
   editTodoItemById,
   updateTodoItemById,
+  renderToDoItemAsHTMLString,
+  renderContainerAsHTMLString,
 } = require("./todo")
 
 let todoList
@@ -137,5 +139,28 @@ describe("TodoList", () => {
 
      })
    })
+
+  describe("#renderToDoItemAsHTMLString", () => {
+    it("should return item into HTMLString", () => {
+      //when
+      const itemAsString = renderToDoItemAsHTMLString(todoList, 3)
+
+      //then
+      expect(itemAsString).toEqual("<div id=\"3\" data-status=\"to-do\"><p>appeler le voisin</p></div>")
+
+    })
+  })
+
+  describe("#renderContainerAsHTMLString", () => {
+    it("should return container into HTMLString", () => {
+      //when
+      const item = renderToDoItemAsHTMLString(todoList, 3)
+      const container = renderContainerAsHTMLString(item)
+
+      //then
+      expect(container).toEqual(`<div class="liste">${item}</div>`)
+
+    })
+  })
 
 })

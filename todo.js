@@ -7,7 +7,8 @@ exports.getTodoItemById = (todolist, todoId) => {
 }
 
 exports.removeTodoItemById = (todolist, todoId) => {
-    return todolist.splice(todoId)
+    let itemToRemove = todolist.find(element => element.id === todoId)
+    return todolist.splice(itemToRemove)
 }
 
 exports.cancelTodoItemEditById = (todolist, todoId) => {

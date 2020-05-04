@@ -108,26 +108,26 @@ describe("TodoList", () => {
       //then
       expect(todoItemAvantSave.value).toEqual(todoItemAvantSave.newValue)
       expect(todoItemApresSave.newValue).toEqual(null)
-      // TODO il manque une vérification
+      expect(todoItemApresSave.value).toEqual(todoItemAvantSave.newValue)
     })
   })
 
   describe("#editTodoItemById", () => {
      it("should set the new value to '' (and not null) when the new value is null", () => {
        //when
-       const todoItemAvantEdit = getTodoItemById(todoList, 3)
-       editTodoItemById(todoList, 3)
-       const todoItemApresEdit = getTodoItemById(todoList, 3) // TODO: pas utilisé donc inutil ?
+       const todoItemAvantEdit = { ... getTodoItemById(todoList, 5)}
+       editTodoItemById(todoList, 5)
+       const todoItemApresEdit = getTodoItemById(todoList, 5)
 
        //then
-       expect(todoItemAvantEdit.value).toBeTruthy() // TODO: pas suffisant, surtout dans ce cas !
+       expect(todoItemAvantEdit.newValue).toEqual(null)
+       expect(todoItemApresEdit.newValue).toEqual('')
      })
    })
 
   describe("#updateTodoItemById", () => {
      it("should update the new value to a given new value in parameter", () => {
        //when
-       const todoItemAvantUpdate = getTodoItemById(todoList, 3) // TODO: pas utilisé donc inutil ?
        const newItem = "Acheter du pain"
        updateTodoItemById(todoList, 3, newItem)
        const todoItemApresUpdate = getTodoItemById(todoList, 3)

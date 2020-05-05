@@ -84,6 +84,7 @@ describe("TodoList", () => {
       // then
       expect(todoItemAvantSuppression).toBeTruthy()
       expect(todoItemAprèsSuppression).toEqual(undefined)
+      expect(todoList).toHaveLength(4)
     })
   })
 

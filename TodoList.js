@@ -1,6 +1,7 @@
-module.exports = class TodoList {
-    constructor({ TodoItems }) {
-        this.todolist = TodoItems
+class TodoList {
+
+    constructor({ todoItems = [] }) {
+        this.todolist = todoItems
     }
 
     addTodoItem = (item) => {
@@ -65,8 +66,8 @@ module.exports = class TodoList {
     }
 
     refreshToDoDOM = () => {
-        let todoItems = this.todolist.renderToDoItemsAsHTMLString()
-        let todoList = this.todolist.renderContainerAsHTMLString(todoItems)
+        let todoItems = this.renderToDoItemsAsHTMLString()
+        let todoList = this.renderContainerAsHTMLString(todoItems)
         let container = document.querySelector(".container")
         container.innerHTML = todoList
         return this

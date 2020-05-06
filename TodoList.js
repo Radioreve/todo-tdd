@@ -4,8 +4,15 @@ class TodoList {
         this.todolist = todoItems
     }
 
+    createItem = (id, newItem) => {
+        let item = {id: id, value: newItem, status: "to-do", newValue: null}
+        return item
+    }
+
     addTodoItem = (item) => {
-        this.todolist.push(item)
+        let newItem = this.createItem(id, item)
+        this.todolist.push(newItem)
+        id++
         return this
     }
 

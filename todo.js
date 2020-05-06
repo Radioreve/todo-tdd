@@ -1,5 +1,5 @@
 exports.addTodoItem = (todolist, todoItem) => {
-    return todolist.push(todoItem)
+    todolist.push(todoItem)
 }
 
 exports.getTodoItemById = (todolist, todoId) => {
@@ -7,19 +7,19 @@ exports.getTodoItemById = (todolist, todoId) => {
 }
 
 exports.removeTodoItemById = (todolist, todoId) => {
-    let itemToRemove = todolist.find(element => element.id === todoId)
-    return todolist.splice(itemToRemove)
+    let indexOfItemToRemove = todolist.findIndex(element => element.id === todoId)
+    todolist.splice(indexOfItemToRemove, 1)
 }
 
 exports.cancelTodoItemEditById = (todolist, todoId) => {
     let itemToCancel = todolist.find(element => element.id === todoId)
-    return itemToCancel.newValue = null
+    itemToCancel.newValue = null
 }
 
 exports.saveTodoItemById = (todolist, todoId) => {
     let itemToSave = todolist.find(element => element.id === todoId)
     itemToSave.value = itemToSave.newValue
-    return itemToSave.newValue = null
+    itemToSave.newValue = null
 }
 
 exports.editTodoItemById = (todolist, todoId) => {
@@ -32,7 +32,7 @@ exports.editTodoItemById = (todolist, todoId) => {
 
 exports.updateTodoItemById = (todolist, todoId, newTask) => {
     let itemToUpdate = todolist.find(element => element.id === todoId)
-    return itemToUpdate.newValue = newTask
+    itemToUpdate.newValue = newTask
 }
 
 exports.renderToDoItemAsHTMLString = (todolist, todoId) => {

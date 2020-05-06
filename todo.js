@@ -1,3 +1,7 @@
+function _getTodoItemById(todolist, todoId){
+    return todolist.find(element => element.id === todoId)
+}
+
 exports.addTodoItem = (todolist, todoItem) => {
     todolist.push(todoItem)
 }
@@ -12,18 +16,18 @@ exports.removeTodoItemById = (todolist, todoId) => {
 }
 
 exports.cancelTodoItemEditById = (todolist, todoId) => {
-    let itemToCancel = todolist.find(element => element.id === todoId)
+    let itemToCancel = _getTodoItemById(todolist, todoId)
     itemToCancel.newValue = null
 }
 
 exports.saveTodoItemById = (todolist, todoId) => {
-    let itemToSave = todolist.find(element => element.id === todoId)
+    let itemToSave = _getTodoItemById(todolist, todoId)
     itemToSave.value = itemToSave.newValue
     itemToSave.newValue = null
 }
 
 exports.editTodoItemById = (todolist, todoId) => {
-    let itemToEdit = todolist.find(element => element.id === todoId)
+    let itemToEdit = _getTodoItemById(todolist, todoId)
 
     if (itemToEdit.newValue === null){
         return itemToEdit.newValue = ''
@@ -31,15 +35,32 @@ exports.editTodoItemById = (todolist, todoId) => {
 }
 
 exports.updateTodoItemById = (todolist, todoId, newTask) => {
-    let itemToUpdate = todolist.find(element => element.id === todoId)
+    let itemToUpdate = _getTodoItemById(todolist, todoId)
     itemToUpdate.newValue = newTask
 }
 
+
 exports.renderToDoItemAsHTMLString = (todolist, todoId) => {
-    let itemToPutAsString = todolist.find(element => element.id === todoId)
-    return `<div id="${itemToPutAsString.id}" data-status="${itemToPutAsString.status}"><p>${itemToPutAsString.value}</p></div>`
+    let itemToPutAsString = _getTodoItemById(todolist, todoId)
+    return `<div id='${itemToPutAsString.id}' data-status='${itemToPutAsString.status}'><p>${itemToPutAsString.value}</p></div>`
+}
+
+exports.renderToDoItemsAsHTMLString = (todolist) => {
+    let toDoItemsAsString = ''
+    todolist.forEach(element => {
+        element = `<div id='${element.id}' data-status='${element.status}'><p>${element.value}</p></div>`
+        toDoItemsAsString += element
+    })
+    return toDoItemsAsString
 }
 
 exports.renderContainerAsHTMLString = (todoItem) => {
     return `<div class="liste">${todoItem}</div>`
+}
+
+exports.refreshToDoDOM = (todolist) => {
+    let todoItems = renderToDoItemsAsHTMLString(todolist)
+    let todoList = renderContainerAsHTMLString(todoItems)
+    let container = document.querySelector(".container")
+    container.innerHTML = todoList
 }

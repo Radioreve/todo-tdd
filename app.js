@@ -18,21 +18,20 @@ body.addEventListener("click", function(e){
     }
 
     let items = document.querySelectorAll("p")
-    items.forEach((element, index) => {
+    items.forEach((singleItem, index) => {
 
-        if (target === element){
+        if (target === singleItem) {
             todoList.editTodoItemById(index)
             input.focus()
-            input.value = element.innerText
+            input.value = singleItem.innerText
 
-            document.querySelector("#edit").addEventListener("click", function(e){
+            document.querySelector("#edit").addEventListener("click", function (e) {
                 e.stopPropagation()
-
                 todoList.updateTodoItemById(index, input.value)
                 todoList.saveTodoItemById(index)
                 todoList.refreshToDoDOM()
-                input.value = ''
             })
         }
     })
+
 })

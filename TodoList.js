@@ -26,6 +26,12 @@ class TodoList {
         return this
     }
 
+    validateTodoItemById = (todoId) => {
+        let itemToValidate = this.getTodoItemById(todoId)
+        itemToValidate.status = "done"
+        return this
+    }
+
     cancelTodoItemEditById = (todoId) => {
         let itemToCancel = this.getTodoItemById(todoId)
         itemToCancel.newValue = null
@@ -36,6 +42,7 @@ class TodoList {
         let itemToSave = this.getTodoItemById(todoId)
         itemToSave.value = itemToSave.newValue
         itemToSave.newValue = null
+        itemToSave.status = "edited"
         return this
     }
 
@@ -43,26 +50,40 @@ class TodoList {
         let itemToEdit = this.getTodoItemById(todoId)
 
         if (itemToEdit.newValue === null){
-            itemToEdit.newValue = ''
+            itemToEdit.newValue = itemToEdit.value
         }
         return this
     }
 
-    updateTodoItemById = (todoId, newTask) => {
+    updateTodoItemById = (todoId) => {
         let itemToUpdate = this.getTodoItemById(todoId)
-        itemToUpdate.newValue = newTask
+        let input = document.querySelector('input')
+        itemToUpdate.newValue = input.value
         return this
     }
 
     renderToDoItemAsHTMLString = (todoId) => {
         let itemToPutAsString = this.getTodoItemById(todoId)
-        return `<div id='${itemToPutAsString.id}' data-status='${itemToPutAsString.status}'><p>${itemToPutAsString.value}</p></div>`
+
+        if (itemToPutAsString.newValue === itemToPutAsString.value){
+            return `<div id='${itemToPutAsString.id}' data-status='${itemToPutAsString.status}'><input type="text" value="${itemToPutAsString.value}"></input></div>`
+
+        }else if (itemToPutAsString.status === "edited"){
+            return `<div class="flex" id='${itemToPutAsString.id}' data-status='${itemToPutAsString.status}'><p class="edited">${itemToPutAsString.value}</p></div>`
+
+        }else if (itemToPutAsString.status === "to-do"){
+            return `<div class="flex" id='${itemToPutAsString.id}' data-status='${itemToPutAsString.status}'><p>${itemToPutAsString.value}</p></div>`
+
+        }else if (itemToPutAsString.status === "done"){
+            return `<div class="flex" id='${itemToPutAsString.id}' data-status='${itemToPutAsString.status}'><p class="done">${itemToPutAsString.value}</p></div>`
+        }
+
     }
 
     renderToDoItemsAsHTMLString = () => {
         let toDoItemsAsString = ''
-        this.todolist.forEach(element => {
-            element = `<div id='${element.id}' data-status='${element.status}'><p>${element.value}</p></div>`
+        this.todolist.forEach((element, index) => {
+            element = this.renderToDoItemAsHTMLString(index)
             toDoItemsAsString += element
         })
         return toDoItemsAsString

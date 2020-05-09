@@ -4,6 +4,7 @@ let todoItems
 let todoList = new TodoList({todoItems})
 let id = 0
 
+/*
 let body = document.querySelector("body")
 let input = document.querySelector("input")
 
@@ -34,4 +35,4 @@ body.addEventListener("click", function(e){
         }
     })
 
-})
+})*/

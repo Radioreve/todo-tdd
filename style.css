@@ -1,0 +1,17 @@
+.edited{
+    color: lightcoral;
+}
+
+.flex{
+    display: flex;
+}
+
+p{
+    margin-right: 5%;
+}
+
+.done{
+    text-decoration: line-through;
+    color: gray;
+    opacity: 0.5;
+}

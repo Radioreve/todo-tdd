@@ -14,13 +14,13 @@
 
 const TodoList = require("./TodoList")
 
-let TodoItems
+let todoItems
 let todoList
 
 describe("TodoList", () => {
   // On réinitialise la valeur de todoItem avant chaque test
   beforeEach(() => {
-    TodoItems = [
+    todoItems = [
       {
         id: 3,
         value: "appeler le voisin",
@@ -33,7 +33,7 @@ describe("TodoList", () => {
       { id: 5, value: "dormir un peu", status: "done", newValue: null },
     ]
 
-    todoList = new TodoList({TodoItems})
+    todoList = new TodoList({todoItems})
   })
 
   describe("#getTodoItemById", () => {
@@ -60,7 +60,7 @@ describe("TodoList", () => {
         status: "to-do",
         newValue: null,
       }
-      todoList.addTodoItem(newTodoItem)
+      todoList.addTodoItem(42, newTodoItem)
       const addedTodoItem = todoList.getTodoItemById(42)
 
       // then
@@ -118,7 +118,7 @@ describe("TodoList", () => {
 
        //then
        expect(todoItemAvantEdit.newValue).toEqual(null)
-       expect(todoItemApresEdit.newValue).toEqual('')
+       expect(todoItemApresEdit.newValue).toEqual(todoItemAvantEdit.value)
      })
    })
 
@@ -142,18 +142,6 @@ describe("TodoList", () => {
 
       //then
       expect(itemAsString).toEqual("<div id='3' data-status='to-do'><p>appeler le voisin</p></div>")
-
-    })
-  })
-
-  describe("#renderContainerAsHTMLString", () => {
-    it("should return container into HTMLString", () => {
-      //when
-      const item = todoList.renderToDoItemAsHTMLString(3)
-      const container = todoList.renderContainerAsHTMLString(item)
-
-      //then
-      expect(container).toEqual(`<div class="liste">${item}</div>`)
 
     })
   })

@@ -16,30 +16,30 @@ class TodoList {
         return this
     }
 
-    getTodoItemByIndex = (todoId) => {
-        return this.todolist.find((element, index) => index === todoId)
+    getTodoItemById = (todoId) => {
+        return this.todolist.find(element => element.id === todoId)
     }
 
     removeTodoItemById = (todoId) => {
-        let indexOfItemToRemove = this.todolist.findIndex((element, index) => index === todoId)
+        let indexOfItemToRemove = this.todolist.findIndex(element => element.id === todoId)
         this.todolist.splice(indexOfItemToRemove, 1)
         return this
     }
 
     validateTodoItemById = (todoId) => {
-        let itemToValidate = this.getTodoItemByIndex(todoId)
+        let itemToValidate = this.getTodoItemById(todoId)
         itemToValidate.status = "done"
         return this
     }
 
     cancelTodoItemEditById = (todoId) => {
-        let itemToCancel = this.getTodoItemByIndex(todoId)
+        let itemToCancel = this.getTodoItemById(todoId)
         itemToCancel.newValue = null
         return this
     }
 
     saveTodoItemById = (todoId) => {
-        let itemToSave = this.getTodoItemByIndex(todoId)
+        let itemToSave = this.getTodoItemById(todoId)
         itemToSave.value = itemToSave.newValue
         itemToSave.newValue = null
         itemToSave.status = "edited"
@@ -47,7 +47,7 @@ class TodoList {
     }
 
     editTodoItemById = (todoId) => {
-        let itemToEdit = this.getTodoItemByIndex(todoId)
+        let itemToEdit = this.getTodoItemById(todoId)
 
         if (itemToEdit.newValue === null){
             itemToEdit.newValue = itemToEdit.value
@@ -56,34 +56,31 @@ class TodoList {
     }
 
     updateTodoItemById = (todoId) => {
-        let itemToUpdate = this.getTodoItemByIndex(todoId)
+        let itemToUpdate = this.getTodoItemById(todoId)
         let input = document.querySelector('input')
         itemToUpdate.newValue = input.value
         return this
     }
 
-    renderToDoItemAsHTMLString = (todoId) => {
-        let itemToPutAsString = this.getTodoItemByIndex(todoId)
-
-        if (itemToPutAsString.newValue === itemToPutAsString.value){
-            return `<div id='${itemToPutAsString.id}' data-status='${itemToPutAsString.status}'><input type="text" value="${itemToPutAsString.value}"></input></div>`
-
-        }else if (itemToPutAsString.status === "edited"){
-            return `<div id='${itemToPutAsString.id}' data-status='${itemToPutAsString.status}'><p class="edited">${itemToPutAsString.value}</p></div>`
-
-        }else if (itemToPutAsString.status === "done"){
-            return `<div id='${itemToPutAsString.id}' data-status='${itemToPutAsString.status}'><p class="done">${itemToPutAsString.value}</p></div>`
-
-        }else {
-            return `<div id='${itemToPutAsString.id}' data-status='${itemToPutAsString.status}'><p>${itemToPutAsString.value}</p></div>`
-        }
-
-    }
-
     renderToDoItemsAsHTMLString = () => {
+        let todo = this.todolist.filter(Boolean)
         let toDoItemsAsString = ''
-        this.todolist.forEach((element, index) => {
-            element = this.renderToDoItemAsHTMLString(index)
+
+        todo.forEach(element => {
+
+            if (element.newValue === element.value){
+                element = `<div data-id='${element.id}' data-status='${element.status}'><input type="text" value="${element.value}"></input></div>`
+
+            }else if (element.status === "edited"){
+                element = `<div class="flex" data-id='${element.id}' data-status='${element.status}'><p class="edited">${element.value}</p><i class="fas fa-times"></i></div>`
+
+            }else if (element.status === "done"){
+                element = `<div class="flex" data-id='${element.id}' data-status='${element.status}'><p class="done">${element.value}</p><i class="fas fa-times"></i></div>`
+
+            }else {
+                element = `<div class="flex" data-id='${element.id}' data-status='${element.status}'><p>${element.value}</p><i class="fas fa-times"></i></div>`
+            }
+
             toDoItemsAsString += element
         })
         return toDoItemsAsString

@@ -4,7 +4,6 @@ let todoItems
 let todoList = new TodoList({todoItems})
 let id = 0
 
-/*
 let body = document.querySelector("body")
 let input = document.querySelector("input")
 
@@ -13,26 +12,22 @@ body.addEventListener("click", function(e){
     let target = e.target
 
     if (target === document.querySelector("#add")){
-        todoList.addTodoItem(input.value)
-        todoList.refreshToDoDOM()
+        todoList.addTodoItem(input.value).refreshToDoDOM()
         input.value = ''
     }
 
-    let items = document.querySelectorAll("p")
-    items.forEach((singleItem, index) => {
+    todoList.todolist.forEach(element => {
+        let item = document.querySelector(`[data-id="${element.id}"]`)
 
-        if (target === singleItem) {
-            todoList.editTodoItemById(index)
-            input.focus()
-            input.value = singleItem.innerText
+        if (target === item.lastChild){
+            const test = item.dataset.id
+            console.log(test)
 
-            document.querySelector("#edit").addEventListener("click", function (e) {
-                e.stopPropagation()
-                todoList.updateTodoItemById(index, input.value)
-                todoList.saveTodoItemById(index)
+            /*if (test === element.id){
+                todoList.removeTodoItemById(test)
                 todoList.refreshToDoDOM()
-            })
+            }*/
         }
     })
 
-})*/
+})

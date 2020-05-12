@@ -69,7 +69,7 @@ class TodoList {
         todo.forEach(element => {
 
             if (element.newValue === element.value){
-                element = `<div data-id='${element.id}' data-status='${element.status}'><input type="text" value="${element.value}"></input></div>`
+                element = `<div class="flex" data-id='${element.id}' data-status='${element.status}'><input type="text" value="${element.value}"></input><button id="edit">Edit Item</button></div>`
 
             }else if (element.status === "edited"){
                 element = `<div class="flex" data-id='${element.id}' data-status='${element.status}'><p class="edited">${element.value}</p><i class="fas fa-times"></i></div>`

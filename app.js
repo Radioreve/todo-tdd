@@ -18,16 +18,17 @@ body.addEventListener("click", function(e){
 
     todoList.todolist.forEach(element => {
         let item = document.querySelector(`[data-id="${element.id}"]`)
+        const test = item.dataset.id
 
         if (target === item.lastChild){
-            const test = item.dataset.id
-            console.log(test)
 
-            /*if (test === element.id){
-                todoList.removeTodoItemById(test)
+            if (Number(test) === element.id){
+                todoList.removeTodoItemById(Number(test))
                 todoList.refreshToDoDOM()
-            }*/
+            }
+
         }
+
     })
 
 })

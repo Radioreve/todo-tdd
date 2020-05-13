@@ -55,10 +55,10 @@ class TodoList {
         return this
     }
 
-    updateTodoItemById = (todoId) => {
+    updateTodoItemById = (todoId, item) => {
         let itemToUpdate = this.getTodoItemById(todoId)
-        let input = document.querySelector('input')
-        itemToUpdate.newValue = input.value
+        let inputEdit = document.querySelector('.edit')
+        itemToUpdate.newValue = inputEdit.value
         return this
     }
 
@@ -69,16 +69,16 @@ class TodoList {
         todo.forEach(element => {
 
             if (element.newValue === element.value){
-                element = `<div class="flex" data-id='${element.id}' data-status='${element.status}'><input type="text" value="${element.value}"></input><button id="edit">Edit Item</button></div>`
+                element = `<div class="grid" data-id='${element.id}' data-status='${element.status}'><input class="edit" type="text" value="${element.value}"></input><div class="icones"><i class="fas fa-check" style="color: lightcoral"></i><i class="far fa-circle"></i><i class="fas fa-times"></i></div></div>`
 
             }else if (element.status === "edited"){
-                element = `<div class="flex" data-id='${element.id}' data-status='${element.status}'><p class="edited">${element.value}</p><i class="fas fa-times"></i></div>`
+                element = `<div class="grid" data-id='${element.id}' data-status='${element.status}'><p class="edited">${element.value}</p><div class="icones"><i class="fas fa-pen-fancy" style="color: lightcoral"></i><i class="far fa-circle"></i><i class="fas fa-times"></i></div></div>`
 
             }else if (element.status === "done"){
-                element = `<div class="flex" data-id='${element.id}' data-status='${element.status}'><p class="done">${element.value}</p><i class="fas fa-times"></i></div>`
+                element = `<div class="grid" data-id='${element.id}' data-status='${element.status}'><p class="done">${element.value}</p><div class="icones"><i class="fas fa-pen-fancy" style="color: lightcoral"></i><i class="fas fa-check-circle checked"></i><i class="fas fa-times"></i></div></div>`
 
             }else {
-                element = `<div class="flex" data-id='${element.id}' data-status='${element.status}'><p>${element.value}</p><i class="fas fa-times"></i></div>`
+                element = `<div class="grid" data-id='${element.id}' data-status='${element.status}'><p>${element.value}</p><div class="icones"><i class="fas fa-pen-fancy" style="color: lightcoral"></i><i class="far fa-circle"></i><i class="fas fa-times"></i></div></div>`
             }
 
             toDoItemsAsString += element
@@ -98,3 +98,5 @@ class TodoList {
         return this
     }
 }
+
+//<div class="icones"><i class="fas fa-pen-fancy"></i><i class="far fa-circle"></i><i class="fas fa-times"></i></div>

@@ -32,6 +32,13 @@ class TodoList {
         return this
     }
 
+
+    invalidateTodoItemById = (todoId) => {
+        let itemToInvalidate = this.getTodoItemById(todoId)
+        itemToInvalidate.status = "to-do"
+        return this
+    }
+
     cancelTodoItemEditById = (todoId) => {
         let itemToCancel = this.getTodoItemById(todoId)
         itemToCancel.newValue = null

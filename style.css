@@ -1,105 +1,42 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-    display: block;
-}
-body {
-    line-height: 1;
-}
-ol, ul {
-    list-style: none;
-}
-blockquote, q {
-    quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-
 body{
-    background-color: azure;
+    background-color: whitesmoke;
+    font-family: "Helvetica Neue", sans-serif;
 }
 
 .content{
-    width: 50%;
+    width: 100%;
     margin: auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1{
-    font-family: 'Shadows Into Light', cursive;
-    font-style: italic;
-    font-size: 60px;
+    color: rgba(175, 47, 47, 0.15);
+    font-size: 100px;
+    font-weight: 100;
     margin-top: 5%;
     margin-bottom: 2%;
 }
 
-#new, .edit{
-    width: 300px;
-    height: 30px;
-    font-family: 'Shadows Into Light', cursive;
-    font-size: 30px;
-    box-shadow: -2px -2px 8px rgba(255, 255, 255, 1),
-                -2px -2px 12px rgba(255, 255, 255, 0.5),
-                inset 2px 2px 4px rgba(255, 255, 255, 0.1),
-                2px 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-a{
-    display: inline-block;
-    margin-top: 3%;
-    margin-bottom: 5%;
-    text-decoration: none;
-    padding: 10px 30px;
-    color: #5a84a2;
-    border-radius: 40px;
-    box-shadow: -2px -2px 8px rgba(255, 255, 255, 1),
-                -2px -2px 12px rgba(255, 255, 255, 0.5),
-                inset 2px 2px 4px rgba(255, 255, 255, 0.1),
-                2px 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-a:hover{
-    box-shadow: inset -2px -2px 8px rgba(255, 255, 255, 1),
-                inset -2px -2px 12px rgba(255, 255, 255, 0.5),
-                inset 2px 2px 4px rgba(255, 255, 255, 0.1),
-                inset 2px 2px 8px rgba(0, 0, 0, 0.15);
+#new{
+    padding: 16px 16px 16px 60px;
+    border: none;
+    width: 50%;
+    font-size: 24px;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: 1.4em;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
+                0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
 .container{
-    width: 100%;
+    margin-top: 1px;
+    border-top: 1px solid #e6e6e6;
+    width: 54.5%;
+    background-color: white;
     text-align: left;
     display: grid;
     grid-template-columns: 100%;
@@ -114,21 +51,31 @@ a:hover{
 }
 
 .grid{
+    padding: 5px 0;
     display: grid;
-    grid-template-columns: 75% 25%;
+    grid-template-columns: 10% 75% 15%;
+    grid-auto-rows: 70px;
     align-items: center;
 }
 
-p{
-    font-family: 'Shadows Into Light', cursive;
-    font-size: 40px;
+.far{
     grid-column: 1;
+    align-items: center;
+    text-align: center;
+}
+
+p, .edit{
+    font-size: 24px;
+    font-weight: lighter;
+    grid-column: 2;
+    width: 80%;
 }
 
 .icones{
-    grid-column: 2;
+    grid-column: 3;
     display: grid;
-    grid-template-columns: repeat(3, 20%);
+    grid-template-columns: 100%;
+    text-align: center;
     align-items: center;
 }
 
@@ -140,5 +87,9 @@ p{
 
 .checked{
     color: darkgreen;
+}
+
+.far, .fas {
+    font-size: larger;
 }
 

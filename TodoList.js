@@ -58,6 +58,7 @@ class TodoList {
 
         if (itemToEdit.newValue === null){
             itemToEdit.newValue = itemToEdit.value
+            itemToEdit.status = 'inProgress'
         }
         return this
     }
@@ -76,16 +77,16 @@ class TodoList {
         todo.forEach(element => {
 
             if (element.newValue === element.value){
-                element = `<div class="grid" data-id='${element.id}' data-status='${element.status}'><input class="edit" type="text" value="${element.value}"></input><div class="icones"><i class="fas fa-check" style="color: lightcoral"></i><i class="far fa-circle"></i><i class="fas fa-times"></i></div></div>`
+                element = `<div class="grid" data-id='${element.id}' data-status='${element.status}'><i class="far fa-circle"></i><input class="edit" type="text" value="${element.value}"></input><div class="icones"><i class="fas fa-times"></i></div></div>`
 
             }else if (element.status === "edited"){
-                element = `<div class="grid" data-id='${element.id}' data-status='${element.status}'><p class="edited">${element.value}</p><div class="icones"><i class="fas fa-pen-fancy" style="color: lightcoral"></i><i class="far fa-circle"></i><i class="fas fa-times"></i></div></div>`
+                element = `<div class="grid" data-id='${element.id}' data-status='${element.status}'><i class="far fa-circle"></i><p class="edited">${element.value}</p><div class="icones"><i class="fas fa-times"></i></div></div>`
 
             }else if (element.status === "done"){
-                element = `<div class="grid" data-id='${element.id}' data-status='${element.status}'><p class="done">${element.value}</p><div class="icones"><i class="fas fa-pen-fancy" style="color: lightcoral"></i><i class="fas fa-check-circle checked"></i><i class="fas fa-times"></i></div></div>`
+                element = `<div class="grid" data-id='${element.id}' data-status='${element.status}'><i class="far fa-check-circle checked"></i><p class="done">${element.value}</p><div class="icones"><i class="fas fa-times"></i></div></div>`
 
             }else {
-                element = `<div class="grid" data-id='${element.id}' data-status='${element.status}'><p>${element.value}</p><div class="icones"><i class="fas fa-pen-fancy" style="color: lightcoral"></i><i class="far fa-circle"></i><i class="fas fa-times"></i></div></div>`
+                element = `<div class="grid" data-id='${element.id}' data-status='${element.status}'><i class="far fa-circle"></i><p>${element.value}</p><div class="icones"><i class="fas fa-times"></i></div></div>`
             }
 
             toDoItemsAsString += element

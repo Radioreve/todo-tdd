@@ -102,30 +102,52 @@ describe("TodoList", () => {
 
   describe("#cancelTodoItemEditById", () => {
     it("should cancel an ongoing edition", () => {
+      //when
+      const newValueAvantEdition = todoList.getTodoItemById(2)
+      todoList.editTodoItemById(2, "Aller au cinéma")
+      todoList.cancelTodoItemEditById(2)
+      const newValueApresAnnulation = todoList.getTodoItemById(2)
 
+      //then
+      expect(newValueApresAnnulation.newValue).toEqual(newValueAvantEdition.newValue)
     })
   })
 
-  describe("#saveTodoItemById", () => {
-    it("should copy the new value into value and set new value to null", () => {
 
-    })
-  })
 
   describe("#updateTodoItemById", () => {
     it("should update the new value to a given new value in parameter", () => {
+      //when
+      const newValue = "Acheter du pain"
+      todoList.editTodoItemById(3, newValue)
+      todoList.updateTodoItemById(3)
+      const valueApresUpdate = todoList.getTodoItemById(3)
 
+      //then
+      expect(valueApresUpdate.value).toEqual(newValue)
+      expect(valueApresUpdate.newValue).toEqual(null)
+    });
+
+    it("should update the new value to a given new value in parameter", () => {
+      //when
+      todoList.editTodoItemById(3)
+      todoList.updateTodoItemById(3, "Acheter du lait")
+      const valueApresUpdate = todoList.getTodoItemById(3)
+
+      //then
+      expect(valueApresUpdate.value).toEqual("Acheter du lait")
+      expect(valueApresUpdate.newValue).toEqual(null)
     })
   })
 
-  describe("#renderToDoItemAsHTMLString", () => {
+  describe("#renderToDoItemsAsHTMLString", () => {
     it("should return item into HTMLString", () => {
       //when
-      const itemAsString = todoList.renderToDoItemAsHTMLString(3)
+      const itemsAsString = todoList.renderToDoItemsAsHTMLString()
 
       //then
-      expect(itemAsString).toEqual(
-        "<div id='3' data-status='to-do'><p>appeler le voisin</p></div>"
+      expect(itemsAsString).toEqual(
+          `<div class="grid" data-id='3' data-status='to-do'><i class="far fa-circle"></i><p>appeler le voisin</p><div class="icones"><i class="fas fa-times"></i></div></div><div class="grid" data-id='1' data-status='to-do'><i class="far fa-circle"></i><p>acheter des crocks</p><div class="icones"><i class="fas fa-times"></i></div></div><div class="grid" data-id='2' data-status='to-do'><i class="far fa-circle"></i><p>aller au cinéma</p><div class="icones"><i class="fas fa-times"></i></div></div><div class="grid" data-id='4' data-status='done'><i class="far fa-check-circle checked"></i><p class="done">faire du sport</p><div class="icones"><i class="fas fa-times"></i></div></div><div class="grid" data-id='5' data-status='done'><i class="far fa-check-circle checked"></i><p class="done">dormir un peu</p><div class="icones"><i class="fas fa-times"></i></div></div>`
       )
     })
   })

@@ -45,30 +45,23 @@ const TodoList = class TodoList {
     return this
   }
 
-  cancelTodoItemEditById = (todoId) => {
-    let itemToCancel = this.getTodoItemById(todoId)
-    itemToCancel.newValue = null
-    return this
-  }
-
-  saveTodoItemById = (todoId) => {
-    let itemToSave = this.getTodoItemById(todoId)
-    itemToSave.value = itemToSave.newValue
-    itemToSave.newValue = null
-    itemToSave.status = "edited"
-    return this
-  }
-
   editTodoItemById = (todoId, newValue) => {
     let itemToEdit = this.getTodoItemById(todoId)
     itemToEdit.newValue = newValue || itemToEdit.value
     return this
   }
 
+  cancelTodoItemEditById = (todoId) => {
+    let itemToCancel = this.getTodoItemById(todoId)
+    itemToCancel.newValue = null
+    return this
+  }
+
   updateTodoItemById = (todoId, item) => {
     let itemToUpdate = this.getTodoItemById(todoId)
-    let inputEdit = document.querySelector(".edit")
-    itemToUpdate.newValue = inputEdit.value
+    itemToUpdate.value = item || itemToUpdate.newValue
+    itemToUpdate.newValue = null
+    itemToUpdate.status = "edited"
     return this
   }
 

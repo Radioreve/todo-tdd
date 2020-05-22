@@ -1,16 +1,15 @@
 "use strict"
 
 /*
-* This TodoList offers an API for
-* - Retrieval
-* - Addition
-* - Deletion
-* - Switch to edition
-* - Update value in edition
-* - Cancellation in edition
-* - Saving in edition
-* */
-
+ * This TodoList offers an API for
+ * - Retrieval
+ * - Addition
+ * - Deletion
+ * - Switch to edition
+ * - Update value in edition
+ * - Cancellation in edition
+ * - Saving in edition
+ * */
 
 const TodoList = require("./TodoList")
 
@@ -25,15 +24,15 @@ describe("TodoList", () => {
         id: 3,
         value: "appeler le voisin",
         status: "to-do",
-        newValue: null
+        newValue: null,
       },
-      { id: 1, value: "acheter des crocks", status: "to-do", newValue: "null" },
+      { id: 1, value: "acheter des crocks", status: "to-do", newValue: null },
       { id: 2, value: "aller au cinéma", status: "to-do", newValue: null },
       { id: 4, value: "faire du sport", status: "done", newValue: null },
       { id: 5, value: "dormir un peu", status: "done", newValue: null },
     ]
 
-    todoList = new TodoList({todoItems})
+    todoList = new TodoList({ todoItems })
   })
 
   describe("#getTodoItemById", () => {
@@ -52,19 +51,18 @@ describe("TodoList", () => {
   })
 
   describe("#addTodoItem", () => {
-    it("should add a todo item", () => {
+    it("should add a todo item with a status as 'to-do'", () => {
       // when
-      const newTodoItem = {
-        id: 42,
+      const newTodoItemId = todoList.addTodoItem("nouveau todo item")
+      const addedTodoItem = todoList.getTodoItemById(newTodoItemId)
+
+      // then
+      expect(addedTodoItem).toEqual({
+        id: 6,
         value: "nouveau todo item",
         status: "to-do",
         newValue: null,
-      }
-      todoList.addTodoItem(42, newTodoItem)
-      const addedTodoItem = todoList.getTodoItemById(42)
-
-      // then
-      expect(addedTodoItem).toEqual(newTodoItem)
+      })
     })
   })
 
@@ -82,58 +80,43 @@ describe("TodoList", () => {
     })
   })
 
+  describe("#editTodoItemById", () => {
+    it("should set the new value to the current value to start editing by default",  () => {
+      // when
+      const valueAvantÉdition = todoList.getTodoItemById(5).value;
+      todoList.editTodoItemById(5);
+      const newValueAprèsÉdition = todoList.getTodoItemById(5).newValue;
+
+      // then
+      expect(newValueAprèsÉdition).toEqual(valueAvantÉdition);
+    });
+    it("should set the new value to the current value to start editing by default",  () => {
+      // when
+      const newValue = "aller chercher des croissants"
+      todoList.editTodoItemById(5, newValue);
+
+      // then
+      expect(todoList.getTodoItemById(5).newValue).toEqual(newValue);
+    });
+  })
+
   describe("#cancelTodoItemEditById", () => {
     it("should cancel an ongoing edition", () => {
-      // when
-      // On doit cloner l'objet avec ... pour prendre une copie et pas la référence !
-      const todoItemAvantAnnulationÉdition = { ...todoList.getTodoItemById(1) }
-      todoList.cancelTodoItemEditById( 1)
-      const todoItemAprèsAnnulationÉdition = todoList.getTodoItemById(1)
 
-      expect(todoItemAvantAnnulationÉdition.newValue).toBeTruthy()
-      expect(todoItemAprèsAnnulationÉdition.newValue).toEqual(null)
     })
   })
 
- describe("#saveTodoItemById", () => {
+  describe("#saveTodoItemById", () => {
     it("should copy the new value into value and set new value to null", () => {
-      // when
-      const todoItemAvantSave = todoList.getTodoItemById(3)
-      todoList.saveTodoItemById(3)
-      const todoItemApresSave = todoList.getTodoItemById(3)
 
-      //then
-      expect(todoItemAvantSave.value).toEqual(todoItemAvantSave.newValue)
-      expect(todoItemApresSave.newValue).toEqual(null)
-      expect(todoItemApresSave.value).toEqual(todoItemAvantSave.newValue)
     })
   })
-
-  describe("#editTodoItemById", () => {
-     it("should set the new value to '' (and not null) when the new value is null", () => {
-       //when
-       const todoItemAvantEdit = { ... todoList.getTodoItemById(5)}
-       todoList.editTodoItemById(5)
-       const todoItemApresEdit = todoList.getTodoItemById(5)
-
-       //then
-       expect(todoItemAvantEdit.newValue).toEqual(null)
-       expect(todoItemApresEdit.newValue).toEqual(todoItemAvantEdit.value)
-     })
-   })
 
   describe("#updateTodoItemById", () => {
-     it("should update the new value to a given new value in parameter", () => {
-       //when
-       const newItem = "Acheter du pain"
-       todoList.updateTodoItemById(3, newItem)
-       const todoItemApresUpdate = todoList.getTodoItemById(3)
+    it("should update the new value to a given new value in parameter", () => {
 
-       //then
-       expect(todoItemApresUpdate.newValue).toEqual(newItem)
-
-     })
-   })
+    })
+  })
 
   describe("#renderToDoItemAsHTMLString", () => {
     it("should return item into HTMLString", () => {
@@ -141,9 +124,9 @@ describe("TodoList", () => {
       const itemAsString = todoList.renderToDoItemAsHTMLString(3)
 
       //then
-      expect(itemAsString).toEqual("<div id='3' data-status='to-do'><p>appeler le voisin</p></div>")
-
+      expect(itemAsString).toEqual(
+        "<div id='3' data-status='to-do'><p>appeler le voisin</p></div>"
+      )
     })
   })
-
 })
